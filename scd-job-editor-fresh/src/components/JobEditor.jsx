@@ -7,7 +7,7 @@ export default function JobEditor() {
   useEffect(() => { fetchJobs(); }, []);
 
   async function fetchJobs() {
-    const { data, error } = await supabase.from('Jobs').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('jobs').select('*').order('created_at', { ascending: false });
     if (!error) setJobs(data);
   }
 
@@ -15,7 +15,7 @@ export default function JobEditor() {
     e.preventDefault();
     const { title, client, status, start_date, end_date } = form;
     if (!title || !client) return;
-    const { error } = await supabase.from('Jobs').insert([{ title, client, status, start_date, end_date }]);
+    const { error } = await supabase.from('jobs').insert([{ title, client, status, start_date, end_date }]);
     if (!error) {
       setForm({ title: '', client: '', status: '', start_date: '', end_date: '' });
       fetchJobs();
